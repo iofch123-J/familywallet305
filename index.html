@@ -529,6 +529,11 @@ function showPin() {
   $('pinMsg').textContent = '';
   drawDots();
   $('pin').classList.add('show');
+  warmUp();
+}
+// 비밀번호를 누르는 동안 Apps Script 서버를 미리 깨워 두어 로그인 대기 시간을 줄임 (응답은 사용하지 않음)
+function warmUp() {
+  if (API_URL) fetch(API_URL, { mode: 'no-cors', cache: 'no-store' }).catch(() => {});
 }
 function drawDots() {
   [...$('dots').children].forEach((s, i) => s.classList.toggle('on', i < pin.length));
